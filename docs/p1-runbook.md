@@ -34,6 +34,8 @@ pnpm exec tsx scripts/interop.ts verify
 
 需要一台可连接 ADB 的 Android 14 真机、系统安全锁屏、已登记的强生物识别，以及用户亲自在手机上确认认证。当前仅连接 Android 16 模拟器；不要将模拟器视为等价条件。SDK 许可提示仍在，现有本机 SDK 已能构建；将来确需新组件许可时由用户阅读接受，不自动代签。
 
+Android 集成测试脚本会优先使用 `ADB_PATH`，否则从 `ANDROID_SDK_ROOT`、`ANDROID_HOME` 或 `apps/authenticator/android/local.properties` 查找 ADB；如果 SDK 未配置到这些位置，需将 `adb` 加入 `PATH`。
+
 ```powershell
 Set-Location apps/authenticator
 flutter pub get

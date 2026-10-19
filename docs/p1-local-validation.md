@@ -20,6 +20,8 @@
 
 2026-10-19 再次执行同一 Android 集成入口，`emulator-5554` 的 UI 能力检查、原生 QR 解码和相机循环 3 项通过，进程 exitCode=0；相机预览连续两次返回 1392×1856，停用/恢复事件和退出重进均通过。第一次相机循环等待超时，第二次重试通过；这只是当前 API 36 模拟器结果，不是 Android 14 真机证据。扩展原生 QR fixture 改为受控的合成测试源码，避免将约 58 KB 图片 Base64 作为 Gradle 命令行参数导致 Windows 进程长度超限；原始截图和运行日志仍不入库。
 
+2026-10-20 本轮再运行 `pnpm exec tsx scripts/browser-probe.ts` 和 `pnpm exec tsx scripts/android-local-validation.ts` 均通过。ADB 未加入 `PATH`，验证脚本通过项目 Android `local.properties` 定位 SDK 后完成安装/权限屏障；现已将此发现固化为 ADB 自动发现逻辑。手机探针报告仍显示模拟器未配置安全锁屏或强生物识别，ECDH 密钥生成失败，因此没有认证成功或软件回退。
+
 当前模拟器为 Android 16/API36，AVD `ZeroInputReview20260928`，不是 Android 14。没有修改其锁屏、登记指纹、相机类型或其他应用数据。它使用 emulated 摄像头；二维码识读使用原生图片解码 API，**不是摄像头拍摄电脑屏幕**。组帧成功仍不代表请求验签或手机批准。
 
 ## 密钥检查结论
