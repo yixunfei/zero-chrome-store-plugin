@@ -47,26 +47,8 @@ jobs:
           cache: true
       - run: flutter pub get
         working-directory: apps/authenticator
-      - name: Analyze Flutter sources
+      - run: flutter analyze
         working-directory: apps/authenticator
-        run: |
-          fixture='integration_test/generated/qr_capture.dart'
-          created_fixture=0
-          if [ ! -f "$fixture" ]; then
-            mkdir -p "$(dirname "$fixture")"
-            printf '%s\n' \
-              'const expectedRequestBytes = 0;' \
-              'const browserQrImages = <String>[];' > "$fixture"
-            created_fixture=1
-          fi
-          cleanup_fixture() {
-            if [ "$created_fixture" -eq 1 ]; then
-              rm -f "$fixture"
-              rmdir "$(dirname "$fixture")" 2>/dev/null || true
-            fi
-          }
-          trap cleanup_fixture EXIT
-          flutter analyze
       - run: flutter test
         working-directory: apps/authenticator
       - run: flutter build apk --debug

@@ -10,7 +10,7 @@ const application = 'dev.zerovault.zero_vault_probe';
 const evidence: Record<string, unknown> = {};
 let output = '', buffer = '';
 let permissionTask: Promise<void> | undefined;
-await mkdir('artifacts', { recursive: true });
+await mkdir('artifacts/local', { recursive: true });
 
 async function grantCamera(marker: string) {
   if (!/^\/data\/user\/0\/dev\.zerovault\.zero_vault_probe\/(?:cache|code_cache)\/p1-camera-ready$/.test(marker)) {
@@ -31,9 +31,10 @@ function line(text: string) {
   if (/P1_|All tests passed|Some tests failed|\[E\]/.test(text)) console.log(text);
 }
 
-const command = 'flutter test integration_test/local_validation_test.dart integration_test/camera_validation_test.dart -d emulator-5554; exit $LASTEXITCODE';
+const command = 'flutter test integration_test/local_validation_test.dart integration_test/camera_validation_test.dart -d $env:P1_ANDROID_DEVICE; exit $LASTEXITCODE';
 const child = spawn('pwsh', ['-NoProfile', '-Command', command], {
   cwd: resolve('apps/authenticator'), windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'],
+  env: { ...process.env, P1_ANDROID_DEVICE: device },
 });
 child.stdout.on('data', data => {
   output += String(data); buffer += String(data);
