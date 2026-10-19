@@ -1,0 +1,26 @@
+{
+  "name": "zero-browser-vault-p1",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.9.1",
+  "scripts": {
+    "test": "tsx --test tests/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "bench": "tsx scripts/benchmark.ts",
+    "build:extension": "pnpm --dir apps/extension build",
+    "package:extension": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-extension.ps1",
+    "install:extension": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-extension.ps1 -Install",
+    "package:android": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-android.ps1",
+    "install:android": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-android.ps1 -Install"
+  },
+  "dependencies": {
+    "@hpke/core": "1.9.0",
+    "cbor2": "2.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.15.30",
+    "playwright": "1.56.1",
+    "tsx": "4.20.3",
+    "typescript": "5.8.3"
+  }
+}

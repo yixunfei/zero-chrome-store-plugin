@@ -1,0 +1,6 @@
+{
+  "name": "@zero-vault/extension-probe", "private": true, "type": "module",
+  "scripts": { "build": "wxt build", "dev": "wxt", "typecheck": "wxt prepare && tsc --noEmit" },
+  "dependencies": { "@hpke/core": "1.9.0", "cbor2": "2.4.0", "react": "19.1.0", "react-dom": "19.1.0", "qrcode": "1.5.4" },
+  "devDependencies": { "wxt": "0.21.4", "@wxt-dev/module-react": "1.2.2", "@types/react": "19.1.6", "@types/react-dom": "19.1.6", "@types/qrcode": "1.5.6" }
+}
